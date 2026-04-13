@@ -1,13 +1,11 @@
-# Task 8 — HW/SW Partition Proposal
-
 ## (a) Which kernel(s) will you accelerate in hardware, and why does the roofline support that choice?
 
 The `zscore_detect` inner loop will be accelerated as a custom streaming dataflow
 pipeline in Verilog. Profiling (Task 5) shows this kernel consumes 99.1% of total
 runtime, executing 133 FLOPs per sample across the entire sensor stream. On the
-laptop CPU the kernel's arithmetic intensity is only 0.496 FLOP/byte — well below
-the ridge point of 1.95 — making it deeply memory-bound at 38.1 GFLOP/s
-(Task 6–7). The roofline confirms that no amount of additional compute can help; the
+laptop CPU the kernel's arithmetic intensity is only 0.496 FLOP/byte which is well below
+the ridge point of 1.95 making it in the memory-bound region at 38.1 GFLOP/s
+(Task 6–7). The roofline confirms that no amount of additional compute can help the
 bottleneck is DRAM bandwidth from repeatedly loading the 32-element sliding window.
 
 A custom accelerator stores the window in an on-chip SRAM shift register, reducing
@@ -33,7 +31,7 @@ headroom to avoid becoming interface-bound.
 
 ## (d) Is your kernel compute-bound or memory-bound, and will the accelerator change that?
 
-On the current laptop CPU the kernel is **memory-bound** (AI = 0.496 < ridge =
-1.95). The accelerator shifts it to **compute-bound** (AI = 11.08 > HW ridge =
+On the current laptop CPU the kernel is "memory-bound" (AI = 0.496 < ridge =
+1.95). The accelerator shifts it to "compute-bound" (AI = 11.08 > HW ridge =
 0.10) because on-chip SRAM eliminates redundant DRAM window loads, making
 arithmetic throughput the sole limiting factor.
