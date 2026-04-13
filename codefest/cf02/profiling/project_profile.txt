@@ -1,0 +1,37 @@
+# Algorithm: Z-Score Streaming Anomaly Detection
+# Tool: cProfile
+# Command: python3 -m cProfile -s cumtime anomaly_detector.py --runs 10 --n_samples 100000
+# Runs: 10 | N = 100,000 samples | Window = 32 | Threshold = 3.0
+ 
+# ============================================================
+# DOMINANT KERNEL IDENTIFIED: zscore_detect()
+#   - 10 calls, tottime = 3.587 s, cumtime = 11.062 s
+#   - Accounts for 99.1% of total runtime (11.062 / 11.157)
+#   - The inner loop iterates over every sample past the warm-up
+#     period and performs: sliding window extraction, running
+#     mean (adder tree), variance (multiply-accumulate), sqrt,
+#     absolute deviation, z-score division, threshold comparison.
+#   - numpy.sum (called ~2M times from within zscore_detect)
+#     is the single most expensive sub-operation.
+# ============================================================
+ 
+Runs: 10  |  Precision: 0.840  Recall: 0.951
+Anomalies flagged: 2264  |  Ground truth anomalies: 2000
+         13137352 function calls (13134927 primitive calls) in 11.462 seconds
+ 
+   Ordered by: cumulative time
+ 
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+    106/1    0.001    0.000   11.462   11.462 {built-in method builtins.exec}
+        1    0.000    0.000   11.462   11.462 anomaly_detector.py:1(<module>)
+        1    0.001    0.001   11.157   11.157 anomaly_detector.py:95(run_detection)
+       10    3.587    0.359   11.062    1.106 anomaly_detector.py:20(zscore_detect)    # <-- DOMINANT KERNEL (99.1%)
+  1999365    1.823    0.000    7.091    0.000 fromnumeric.py:2304(sum)
+  2001366    2.132    0.000    4.971    0.000 fromnumeric.py:66(_wrapreduction)
+  2001366    2.459    0.000    2.459    0.000 {method 'reduce' of 'numpy.ufunc' objects}
+  2001438    0.379    0.000    0.379    0.000 {method 'items' of 'dict' objects}
+  2012985    0.306    0.000    0.306    0.000 {built-in method builtins.isinstance}
+  1999365    0.217    0.000    0.217    0.000 fromnumeric.py:2299(_sum_dispatcher)
+   999680    0.166    0.000    0.166    0.000 {built-in method builtins.abs}
+        1    0.028    0.028    0.094    0.094 anomaly_detector.py:72(generate_sensor_data)
+     2001    0.001    0.000    0.008    0.000 fromnumeric.py:3287(prod)
