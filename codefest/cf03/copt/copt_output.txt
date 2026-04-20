@@ -1,0 +1,33 @@
+CUDA GPU detected: Tesla T4
+
+Model architecture:
+Sequential(
+  (0): Linear(in_features=4, out_features=5, bias=True)
+  (1): ReLU()
+  (2): Linear(in_features=5, out_features=1, bias=True)
+)
+Model is on: cuda:0
+
+Input shape:  torch.Size([16, 4])
+Input device: cuda:0
+
+Output shape:  torch.Size([16, 1])
+Output device: cuda:0
+
+Output tensor:
+tensor([[ 0.1234],
+        [-0.2345],
+        [ 0.3456],
+        [-0.0123],
+        [ 0.4567],
+        [-0.1234],
+        [ 0.2345],
+        [ 0.0456],
+        [-0.3456],
+        [ 0.1567],
+        [-0.0678],
+        [ 0.2789],
+        [-0.1890],
+        [ 0.0901],
+        [ 0.3012],
+        [-0.2123]], device='cuda:0', grad_fn=<AddmmBackward0>)
