@@ -1,0 +1,22 @@
+VCD info: dumpfile compute_core.vcd opened for output.
+============================================
+  tb_compute_core — Z-Score Anomaly Detector
+============================================
+Threshold T=3.0, T^2=9.0, Q16.16=589824
+
+--- Warm-up phase (32 samples) ---
+Warm-up complete.
+
+--- Test 1: Normal sample 10.0 ---
+  PASS: Normal sample correctly classified (flag=0)
+
+--- Test 2: Anomaly sample 25.0 ---
+  PASS: Anomaly sample correctly detected (flag=1)
+
+--- Test 3: Normal sample 10.5 ---
+  PASS: Normal sample correctly classified (flag=0)
+
+============================================
+  Results: 3 passed, 0 failed
+  >>> PASS <<<
+============================================

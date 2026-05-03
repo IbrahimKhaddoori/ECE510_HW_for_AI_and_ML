@@ -1,0 +1,22 @@
+VCD info: dumpfile interface.vcd opened for output.
+============================================
+  tb_interface — AXI4-Stream Interface Test
+============================================
+
+--- Test 1: Config write (THRESHOLD_SQ = 589824) ---
+--- Test 2: Config read (verify THRESHOLD_SQ) ---
+  PASS: Read back 589824, expected 589824
+
+--- Warm-up: 32 AXI4-Stream write transactions ---
+Warm-up complete (32 handshakes verified).
+
+--- Test 3: AXI4-Stream write normal sample (10.0) ---
+  PASS: Normal sample → flag=0 (no anomaly)
+
+--- Test 4: AXI4-Stream write anomaly sample (25.0) ---
+  PASS: Anomaly sample → flag=1 (detected)
+
+============================================
+  Results: 4 passed, 0 failed
+  >>> PASS <<<
+============================================
