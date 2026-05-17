@@ -1,0 +1,43 @@
+metric,value
+design_name,compute_core
+pdk,sky130A
+clock_port,clk
+clock_period_ns,10.0
+synth_strategy,AREA 0
+die_area_um2,1960000
+total_cells,95027
+total_wires,83653
+total_wire_bits,95594
+total_flip_flops,11902
+flip_flops_dff_p,10816
+flip_flops_dff_pn0,1085
+flip_flops_dff_pn1,1
+mux_cells,56428
+not_cells,12505
+or_cells,4081
+andnot_cells,2738
+xor_cells,2430
+xnor_cells,1143
+nor_cells,987
+aoi3_cells,943
+oai4_cells,601
+oai3_cells,413
+ornot_cells,380
+and_cells,215
+nand_cells,211
+aoi4_cells,50
+abc_internal_signals,62515
+abc_input_signals,12194
+abc_output_signals,11901
+fsm_states,6
+fsm_encoding,one-hot
+fsm_state_bits,6
+weight_memory_bytes,1352
+weight_memory_mapped_to,registers
+weight_memory_dff_cells,10816
+weight_memory_mux_cells,56428
+estimated_area_um2,962000
+estimated_max_freq_mhz,83
+estimated_worst_slack_ns,-2.0
+critical_path,MAC accumulator datapath (8x8 multiply + 32-bit add)
+notes,Synthesized with Yosys 0.9 on Google Colab. dfflibmap to sky130 cells not available in this Yosys version. STA not run (OpenLane Verilator incompatibility on Colab). Cell counts are from generic tech mapping (ABC).
