@@ -15,7 +15,3 @@ Autoencoder Anomaly Detection Hardware Accelerator — 8-MAC INT8 inference engi
 - **Area reasonable:** ~962,000 μm² total cell area, dominated by register-mapped weight SRAM (10,816 flip-flops). A production implementation using SRAM macros would reduce this by ~8×. For the class project, the register-based approach is acceptable and demonstrates the complete datapath.
 
 - **Software optimization complete:** Combined Method 3 + 5 training (quantization-aware training with tuned hyperparameters) improved INT8 F1 from 0.659 to 0.672 with no RTL changes, validating the HW/SW co-design approach.
-
-## No Scope Changes
-
-No reductions or expansions needed. All M1–M3 deliverables are on track. M4 final report will include synthesis analysis, SW/HW benchmark comparison, and the optimized training pipeline.
