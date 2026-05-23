@@ -1,0 +1,35 @@
+VCD info: dumpfile cosim.vcd opened for output.
+============================================================
+  tb_top — End-to-End Co-Simulation (M3)
+  Host -> AXI4-Lite/Stream -> Interface -> Compute -> Result
+============================================================
+
+--- Phase 1: Loading 1352 weights via config port ---
+  1352 weights loaded (Layer 0 diagonal = 64, rest = 0)
+
+--- Phase 2: Set threshold = 512 (2.0 in Q8.8) ---
+  PASS: Threshold readback = 512 (expected 512)
+
+--- Phase 3: Stream 32-byte sensor sample via AXI4-Stream ---
+  AXI4-Stream handshake completed (32 bytes transferred)
+
+--- Phase 4: Wait for result on AXI4-Stream master ---
+  Result received in 213 cycles
+  Raw result:   0x0000007c
+  Anomaly flag: 0 (bit 0)
+  MSE (Q8.8):   62 (bits 16:1)
+
+--- Phase 5: Verify against software reference ---
+  PASS: Anomaly flag = 0 (expected 0, MSE < threshold)
+  PASS: MSE = 62 (expected ~62, tolerance 50-75)
+  Config read MSE_OUT: 62
+
+--- Test 2: Low threshold → expect anomaly flag = 1 ---
+  Result: flag=1, MSE=62
+  PASS: Anomaly flag = 1 (MSE > low threshold)
+
+============================================================
+  Results: 5 passed, 0 failed
+  >>> PASS <<<
+============================================================
+tb_top.v:296: $finish called at 86645000 (1ps)
