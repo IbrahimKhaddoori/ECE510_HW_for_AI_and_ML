@@ -1,0 +1,18 @@
+{
+    "DESIGN_NAME": "top",
+    "VERILOG_FILES": [
+        "dir::rtl/top.v",
+        "dir::rtl/interface.v",
+        "dir::rtl/compute_core.v"
+    ],
+    "CLOCK_PORT": "clk",
+    "CLOCK_PERIOD": 12.0,
+    "PDK": "sky130A",
+
+    "FP_CORE_UTIL": 50,
+    "PL_TARGET_DENSITY_PCT": 55,
+    "FP_SIZING": "absolute",
+    "DIE_AREA": "0 0 1400 1400",
+
+    "SYNTH_STRATEGY": "AREA 0"
+}

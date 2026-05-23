@@ -1,0 +1,27 @@
+# Power estimation report
+
+## Attempt
+
+Power estimation was attempted using OpenLane 2's STA_REPORT_POWER option on Google Colab. The full OpenLane flow failed at the Verilator lint stage (Colab's Verilator 4.x lacks the -Wno-EOFNEWLINE flag required by OpenLane 2) and at the Yosys JSON header stage (Colab's Yosys 0.9 lacks the -y flag used by OpenLane 2's pyosys wrapper). Synthesis was completed using standalone Yosys, but Yosys 0.9 does not include power estimation.
+
+## Failure mode
+
+OpenLane 2 requires Yosys ≥ 0.23 and Verilator ≥ 5.0 for the full flow including power analysis. Google Colab provides Yosys 0.9 and Verilator 4.x via apt, which are too old. The Nix-based OpenLane installation was not attempted due to Colab storage constraints.
+
+## Rough estimate from synthesis data
+
+Based on the 95,027 synthesized cells in sky130_fd_sc_hd at 83 MHz:
+- 11,902 flip-flops (dominant static power contributor)
+- 56,428 MUX cells (dominant dynamic power due to high switching during weight reads)
+- 8 MAC lanes switching every cycle during S_MAC state
+
+Estimated dynamic power: ~5-15 mW at 83 MHz (based on sky130 typical cell power of ~0.5-1.5 µW/cell/MHz for active cells, with ~30% average activity factor).
+
+Estimated leakage power: ~50-200 µW (sky130 130nm process, room temperature).
+
+## Plan for M4
+
+For M4, power estimation will be attempted using one of:
+1. Docker-based OpenLane 2 (correct Yosys/Verilator versions) on a local machine or PSU ORCA cluster
+2. Standalone OpenSTA with sky130 liberty files for gate-level power analysis
+3. Yosys + manual power calculation using sky130_fd_sc_hd cell library power characterization data
