@@ -1,0 +1,5 @@
+# Roofline analysis
+
+The HW accelerator point (projected) lands at AI = 80.5 FLOP/byte, 1.03 GOPS — sitting on the AXI4-Stream bandwidth slope, just below the ridge point at 106 FLOP/byte. This confirms the design is interface-bound: the 12.5 MB/s effective AXI bandwidth limits throughput to 78% of the 1.33 GOPS compute ceiling. The 22% gap between attainable and peak performance represents idle MAC cycles spent waiting for the next sample to arrive through the interface and for non-MAC FSM states (S_LOAD, S_BIAS, S_MSE, S_DONE overhead).
+
+Since these are projected numbers (not measured on silicon), the dominant uncertainty is the actual achievable clock frequency. The 83 MHz figure assumes the critical path delay estimate from Yosys generic synthesis is accurate; sky130-specific cell mapping and post-route wire delays could shift this by ±10-15%. Converting this projection to a measurement would require completing the OpenLane place-and-route flow with STA using sky130 liberty timing files, then running gate-level simulation on the routed netlist to capture actual cycle counts with realistic propagation delays.
