@@ -1,0 +1,29 @@
+VCD info: dumpfile trained_weights.vcd opened for output.
+============================================================
+  Trained Weight Integration Test
+  1,352 QAT-trained INT8 weights + 8 real sensor samples
+  Threshold = 4836 (Q8.8)
+============================================================
+
+--- Loading 1352 trained weights via config port ---
+  Done.
+
+--- Setting threshold = 4836 ---
+
+--- Running 8 samples ---
+  Sample | Type    | Flag | MSE(Q8.8) | Result
+  -------+---------+------+-----------+-------
+  0      | NORMAL  |  0   |   769     | PASS
+  1      | NORMAL  |  0   |   761     | PASS
+  2      | NORMAL  |  0   |   812     | PASS
+  3      | NORMAL  |  0   |   517     | PASS
+  4      | ANOMALY |  1   |  9319     | PASS
+  5      | ANOMALY |  1   |  8860     | PASS
+  6      | ANOMALY |  1   |  9770     | PASS
+  7      | ANOMALY |  1   |  9118     | PASS
+
+============================================================
+  Results: 8 passed, 0 failed out of 8
+  >>> PASS — Trained weights produce correct anomaly detection <<<
+============================================================
+/home/claude/proj/m4/tb/tb_top.v:166: $finish called at 98985000 (1ps)
