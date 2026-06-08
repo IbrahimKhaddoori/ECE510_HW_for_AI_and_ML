@@ -1,0 +1,25 @@
+TIMING REPORT — OpenLane 2 multi-corner signoff STA
+===================================================
+Clock: clk, period 25.0 ns (40 MHz).  Source: final/metrics.json
+
+Corner                         Setup WNS    Hold WNS   Setup vio   Hold vio   Status
+-----------------------------  ----------   ---------  ---------   --------   ------
+Typical  (tt, 25C,  1.80V)         +9.13     +0.31           0          0    CLEAN
+Fast     (ff, -40C, 1.95V)        +13.62     +0.11           0          0    CLEAN
+Slow     (ss, 100C, 1.60V)         -5.26     -0.34         133        139    VIOLATIONS
+
+Summary
+-------
+- Setup and hold close with large positive slack at the typical and fast corners.
+- The slow corner fails setup by 5.26 ns (133 endpoints) and hold by
+  0.34 ns (139 endpoints).
+- First-order all-corner closing period ~ 25 + 5.26 = 30.3 ns  ->  ~33 MHz.
+
+Design-rule (DRV) violations (worst across corners)
+---------------------------------------------------
+Max slew     1819      Max fanout    826      Max cap    416
+
+Root cause: long, high-fanout read paths through the register-file weight memory,
+left unrepaired because the post-global-route resizer step was disabled in the
+area-optimized configuration. Remedies: compiled SRAM macro + enabling post-route
+timing optimization. See what_did_not_work.

@@ -1,0 +1,27 @@
+POWER REPORT — OpenLane 2 / OpenROAD signoff (typical corner, 40 MHz)
+====================================================================
+Source: final/metrics.json
+
+Component        Power (W)        Share
+---------------  --------------   ------
+Internal         0.119370         44.3 %
+Switching        0.150040         55.7 %
+Leakage          1.190e-06          0.0 %
+---------------  --------------   ------
+TOTAL            0.269411        100.0 %   (269.4 mW)
+
+Power integrity
+---------------
+Worst IR drop                15.7 mV
+Average IR drop              0.174 mV
+Worst supply voltage         1.780 V  (nominal 1.80 V)
+Power-grid violations        0
+
+Derived energy figures (40 MHz, 217 cycles/inference)
+-----------------------------------------------------
+Latency per inference        5.425 us
+Energy per inference         1.462 uJ   ( = 0.2694 W x 5.425 us )
+Energy efficiency            1.82 GFLOPS/W
+
+Note: this is the first run to reach signoff power analysis; prior milestones had
+no measured power (the Colab flow was killed before signoff by a memory limit).

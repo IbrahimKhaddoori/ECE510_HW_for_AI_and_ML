@@ -1,0 +1,29 @@
+AREA REPORT — OpenLane 2 / OpenROAD signoff (sky130A)
+=====================================================
+Source: runs/.../final/metrics.json  (post-route, post-fill)
+
+Die area                    3,240,000 um^2   (1800 x 1800 um = 3.24 mm^2)
+Core area                   3,177,440 um^2
+Placed std-cell area          924,054 um^2
+Core utilization                   29.1 %
+Total std-cell instances      116,629
+Macros                              0
+
+Cell-class breakdown
+--------------------
+Sequential (flip-flops)           12,211   (~10,816 = 1352x8 weight register file)
+Multi-input combinational         36,530   (read-path mux fabric dominates)
+Timing-repair buffers             17,718
+Hold buffers                      11,765
+Clock buffers                      1,812
+Clock inverters                    1,064
+Tap cells                         45,195
+Antenna diodes                     1,894
+Fill cells                       232,944
+
+Synthesis (pre-PnR, Yosys+ABC):  48,945 cells / 682,088 um^2
+  Sequential fraction of synthesized logic: 266,715 um^2 (39.1%)
+
+Note: the weight memory is implemented as a flat register file (no SRAM macro),
+which is why sequential cells + the read-mux fabric dominate both area and the
+later timing/DRV issues. See what_did_not_work for the SRAM-macro remedy.
