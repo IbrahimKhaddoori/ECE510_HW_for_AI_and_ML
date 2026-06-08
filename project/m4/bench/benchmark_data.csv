@@ -1,0 +1,34 @@
+# Benchmark raw data — autoencoder anomaly-detection accelerator
+# HW numbers are MEASURED from completed OpenLane 2 signoff (40 MHz typical corner)
+#   + measured cycle count (Icarus co-sim). SW baseline: Python 3.12 + NumPy, x86-64, batch 10,000.
+#
+# --- Section 1: SW baseline vs HW accelerator comparison ---
+metric,sw_baseline,hw_accelerator,unit,source
+clock_frequency,3.5e9,40e6,Hz,SW CPU turbo / HW closed at 40 MHz (tt,ff); ss needs ~33 MHz
+cycles_per_inference,,217,cycles,Icarus co-sim (sim/final_run.log)
+single_sample_latency,12.0,5.425,us,HW = 217 cycles / 40e6 Hz
+batch_throughput,6355000,184332,samples_per_sec,HW = 40e6 / 217
+throughput,16885,490,MFLOPS,HW = 2657 FLOPs x batch_throughput
+flops_per_inference,2657,2657,FLOPs,1280 MAC x2 + 97 MSE
+memory_footprint,1285408,1385,bytes,weights + activations resident
+weight_storage,5408,1352,bytes,FP32 (SW) vs INT8 (HW)
+f1_score,0.661,0.672,ratio,test set; HW = INT8 + QAT
+power_total,10.0,0.2694,W,SW 5-15 W est. / HW MEASURED at signoff
+energy_per_inference,120000,1462,nJ,HW = power x latency (MEASURED)
+energy_efficiency_GFLOPS_per_W,,1.82,GFLOPS/W,HW measured signoff
+latency_speedup,,2.2,x,12.0 us / 5.425 us
+memory_efficiency,,928,x,1285408 B / 1385 B
+operational_intensity,,41.5,FLOP/byte,weights-stationary: 2657 / 64 B I/O
+hw_peak_compute,,640,MFLOPS,8 MAC x 2 x 40 MHz
+#
+# --- Section 2: per-sample inference results (measured, sim/final_run.log) ---
+# Threshold = 4836 (Q8.8). flag = 1 when MSE > threshold.
+sample,type,mse_q88,flag,expected_flag,result
+0,normal,769,0,0,PASS
+1,normal,761,0,0,PASS
+2,normal,812,0,0,PASS
+3,normal,517,0,0,PASS
+4,anomaly,9319,1,1,PASS
+5,anomaly,8860,1,1,PASS
+6,anomaly,9770,1,1,PASS
+7,anomaly,9118,1,1,PASS
