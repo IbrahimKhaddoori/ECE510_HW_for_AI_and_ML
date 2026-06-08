@@ -15,9 +15,9 @@ dissipates 0.269 W, and completes one inference in 5.43 µs.
 
 The final M4 submission lives in [`project/m4/`](project/m4/) and is cataloged in
 [`project/m4/README.md`](project/m4/README.md). The graded design justification
-report — the nine-section write-up covering problem/motivation, roofline,
+report and the nine-section write-up covering problem/motivation, roofline,
 precision, architecture, interface, verification, synthesis, benchmark, and what
-did not work — is at
+did not work are at
 [`project/m4/report/design_justification.pdf`](project/m4/report/design_justification.pdf).
 
 Earlier deliverables remain in place under `project/` (`heilmeier.md`, `m1/`,
